@@ -13,7 +13,7 @@ app.get('/games', async (req, res) => {
 
 // Retrieve Game by ID
 app.get('/games/details/:id', async (req, res) => {
-  let id = parseInt(req.params.id);
+  let id = req.params.id;
   let result = await getGameById(id);
   res.json({ result });
 });
