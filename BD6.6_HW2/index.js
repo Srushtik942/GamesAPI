@@ -7,13 +7,13 @@ app.use(cors());
 
 // Retrieve All Games
 app.get('/games', async (req, res) => {
-  let result = await getAllGames();
-  res.json({ result });
+  let games = await getAllGames();
+  res.json( {games} );
 });
 
 // Retrieve Game by ID
 app.get('/games/details/:id', async (req, res) => {
-  let id = req.params.id;
+  let id = parseInt(req.params.id);
   let result = await getGameById(id);
   res.json({ result });
 });

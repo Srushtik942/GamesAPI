@@ -65,53 +65,45 @@ describe('Controller function test', () => {
   });
 });
 
-describe('API endpoints', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it('should return all the games', async () => {
-    const mockGames = [
-      {
-        gameId: 1,
-        title: 'The Legend of Zelda: Breath of the Wild',
-        genre: 'Adventure',
-        platform: 'Nintendo Switch',
-      },
-      {
-        gameId: 2,
-        title: 'Red Dead Redemption 2',
-        genre: 'Action',
-        platform: 'PlayStation 4',
-      },
-      {
-        gameId: 3,
-        title: 'The Witcher 3: Wild Hunt',
-        genre: 'RPG',
-        platform: 'PC',
-      },
-    ];
-    getAllGames.mockResolvedValue(mockGames);
-
+describe('API Endpoints',()=>{
+  it('should return all the games',async()=>{
     const res = await request(server).get('/games');
     expect(res.status).toBe(200);
     expect(res.body).toEqual({
-      games: mockGames,
-    });
+      games: [
+        {
+          'gameId': 1,
+          'title': 'The Legend of Zelda: Breath of the Wild',
+          'genre': 'Adventure',
+          'platform': 'Nintendo Switch'
+        },
+        {
+          'gameId': 2,
+          'title': 'Red Dead Redemption 2',
+          'genre': 'Action',
+          'platform': 'PlayStation 4'
+        },
+        {
+          'gameId': 3,
+          'title': 'The Witcher 3: Wild Hunt',
+          'genre': 'RPG',
+          'platform': 'PC'
+        },
+      ]    
+    })
     expect(res.body.games.length).toBe(3);
-  });
-
-  it('should return games by id', async () => {
-    const mockGame = {
-      gameId: 1,
-      title: 'The Legend of Zelda: Breath of the Wild',
-      genre: 'Adventure',
-      platform: 'Nintendo Switch',
-    };
-    getGameById.mockResolvedValue(mockGame);
-
+  })
+  it('should return the games by their Id',async()=>{
     const res = await request(server).get('/games/details/1');
     expect(res.status).toBe(200);
-    expect(res.body).toEqual(mockGame);
-  });
-});
+    expect(res.body).toEqual({
+      result : {
+      'gameId': 1,
+      'title': 'The Legend of Zelda: Breath of the Wild',
+      'genre': 'Adventure',
+      'platform': 'Nintendo Switch'
+      }
+    })
+  })
+
+})
